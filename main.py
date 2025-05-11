@@ -22,5 +22,5 @@ def main():
         if choice == "5": get_map(users)
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
