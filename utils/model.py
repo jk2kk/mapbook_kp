@@ -1,7 +1,7 @@
 users = [
-    {"name": "Krzysztof", "location": "Lublin", "posts": 500},
-    {"name": "Bartosz", "location": "Ostrołeka", "posts": 69},
-    {"name": "Ksawier", "location": "Warszawa", "posts": 32},
-    {"name": "Mikołaj", "location": "Madryt", "posts": 56},
+    {"name": "Daniel", "location": "Łódź", "posts": 500},
+    {"name": "Michał", "location": "Krasnystaw", "posts": 400},
+    {"name": "Ksavier", "location": "Grudziądz", "posts": 300},
+    {"name": "Damian", "location": "Kraków", "posts": 200},
 
 ]
