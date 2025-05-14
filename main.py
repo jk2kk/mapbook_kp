@@ -62,6 +62,19 @@ def update_user(i):
     entry_imie.focus()
 
 
+def show_user_details():
+    i = listbox_lista_obiektów.index(ACTIVE)
+    label_posty_szczegoly_obiektu_wartosc.config(text=users[i]['posty'])
+    label_nazwisko_szczegoly_obiektu_wartosc.config(text=users[i]['surname'])
+    label_miejscowosc_szczegoly_obiektu_wartosc.config(text=users[i]['location'])
+    label_posty_szczegoly_obiektu_wartosc.config(text=users[i]['posts'])
+
+
+
+
+
+
+
 root = Tk()
 
 root.title('mapbook_kp')
@@ -85,7 +98,7 @@ label_lista_obiektow.grid(row=0, column=0)
 listbox_lista_obiektów = Listbox(ramka_lista_obiektow)
 listbox_lista_obiektów.grid(row=1, column=0, columnspan=3)
 
-button_pokaz_szczegoly = Button(ramka_lista_obiektow, text='Pokaż szczegóły')
+button_pokaz_szczegoly = Button(ramka_lista_obiektow, text='Pokaż szczegóły' , command=show_user_details)
 button_pokaz_szczegoly.grid(row=3, column=0)
 
 button_usun_obiekt = Button(ramka_lista_obiektow, text='Usuń obiekt', command=remove_user)
