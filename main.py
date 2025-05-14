@@ -5,12 +5,33 @@ import tkintermapview
 users: list = []
 
 
+class User:
+    def __init__(self, name: str, surname: str, location: str, posts: str):
+        self.name = name
+        self.surname = surname
+        self.location = location
+        self.posts = posts
+        self.get_coordinates = self.get_coordinates()
+        self.marker=map_widget.set_marker(self.coordinates[0], self.coordinates[1])
+
+    def get_coordinates(self) -> list:
+        import requests
+        from bs4 import BeautifulSoup
+
+        url = f'https://pl.wikipedia.org/wiki/{self.location}'
+        response = requests.get(url).text
+        response_html = BeautifulSoup(response, 'html.parser')
+        longitude = float(response_html.select('.longitude')[1].text.replace(',', '.'))
+        latitude = float(response_html.select('.latitude')[1].text.replace(',', '.'))
+        return [latitude, longitude]
+
+
 def add_user():
     name = entry_imie.get()
     surname = entry_nazwisko.get()
     location = entry_miejscowosc.get()
     posts = entry_liczba_postow.get()
-    users.append({"name": name, "surname": surname, "location": location, "posts": posts})
+    users.append(User(name=name, surname=surname, location=location, posts=posts)
     print(users)
     show_users()
 
@@ -24,12 +45,15 @@ def add_user():
 def show_users():
     listbox_lista_obiektów.delete(0, END)
     for idx, user in enumerate(users):
-        listbox_lista_obiektów.insert(idx, f'{idx}{user["name"]}{user["surname"]}{user["location"]}{user["posts"]}')
+        listbox_lista_obiektów.insert(idx, f'{idx} {user.location} {user.location} {user.posts})
+
+        map_widget.set_marker(user.coordinates[0], user.coordinates[1])
 
 
 def remove_user():
     i = listbox_lista_obiektów.index(ACTIVE)
     print(i)
+    users[i].marker.delete()
     users.pop(i)
     show_users()
 
@@ -70,11 +94,6 @@ def show_user_details():
     label_posty_szczegoly_obiektu_wartosc.config(text=users[i]['posts'])
 
 
-
-
-
-
-
 root = Tk()
 
 root.title('mapbook_kp')
@@ -98,7 +117,7 @@ label_lista_obiektow.grid(row=0, column=0)
 listbox_lista_obiektów = Listbox(ramka_lista_obiektow)
 listbox_lista_obiektów.grid(row=1, column=0, columnspan=3)
 
-button_pokaz_szczegoly = Button(ramka_lista_obiektow, text='Pokaż szczegóły' , command=show_user_details)
+button_pokaz_szczegoly = Button(ramka_lista_obiektow, text='Pokaż szczegóły', command=show_user_details)
 button_pokaz_szczegoly.grid(row=3, column=0)
 
 button_usun_obiekt = Button(ramka_lista_obiektow, text='Usuń obiekt', command=remove_user)
@@ -173,5 +192,9 @@ map_widget.grid(row=0, column=0, columnspan=2)
 
 map_widget.set_position(52.23, 21.00)
 map_widget.set_zoom(6)
+
+
+
+
 
 root.mainloop()
