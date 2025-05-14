@@ -105,6 +105,13 @@ map_widget.set_position(52.23, 21.00)
 map_widget.set_zoom(6)
 
 
+def add_user():
+
+
+
+
+
+
 
 root.mainloop()
 
