@@ -106,6 +106,7 @@ map_widget.set_zoom(6)
 
 
 def add_user():
+    name=entry_imie.get()
 
 
 
