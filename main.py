@@ -31,7 +31,7 @@ def add_user():
     surname = entry_nazwisko.get()
     location = entry_miejscowosc.get()
     posts = entry_liczba_postow.get()
-    users.append(User(name=name, surname=surname, location=location, posts=posts)
+    users.append(User(name=name, surname=surname, location=location, posts=posts))
     print(users)
     show_users()
 
@@ -45,7 +45,7 @@ def add_user():
 def show_users():
     listbox_lista_obiektów.delete(0, END)
     for idx, user in enumerate(users):
-        listbox_lista_obiektów.insert(idx, f'{idx} {user.location} {user.location} {user.posts})
+        listbox_lista_obiektów.insert(idx, f'{idx} {user.location} {user.location} {user.posts}')
 
         map_widget.set_marker(user.coordinates[0], user.coordinates[1])
 
